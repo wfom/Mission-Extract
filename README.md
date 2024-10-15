@@ -9,5 +9,7 @@ Mission_Extract — это программа для извлечения фай
 Файл \[VegetationObject.veg\] - содержит объекты [Vegetation](https://www.cryengine.com/docs/static/engines/cryengine-3/categories/1114113/pages/1310884), которые используется на карте (только информацию, без координат каждого объекта)
 
 Для работы программы требуется:
-- [CryLevelConvert.exe](https://github.com/prophetl33t/CryLevelConvert) последней версии и файлы необходимые для его конкретной работы
-- Расшифрованный архив уровня \[level.pak\]
+- [CryLevelConvert.exe](https://github.com/prophetl33t/CryLevelConvert) последней версии и файлы необходимые для его конкретной работы;
+- Расшифрованный архив уровня \[level.pak\];
+
+Программа является своеобразным дополнением к [CryLevelConvert.exe](https://github.com/prophetl33t/CryLevelConvert), что позволяет упростить и ускорить работу с ним в несколько раз ;)
