@@ -28,7 +28,7 @@ try:
         NameLevel = tag.attrib['Name']
     print(f'- Level Name:: [{NameLevel}]')
     if not os.path.isdir(NameLevel):
-        Folders = [NameLevel, f"{NameLevel}/Layers", f"{NameLevel}/TOD", f"{NameLevel}/Terrain", f"{NameLevel}/Vegetation"]
+        Folders = [NameLevel, f"{NameLevel}/Setting", f"{NameLevel}/Setting/Layers", f"{NameLevel}/Setting/TOD", f"{NameLevel}/Setting/Lighting", f"{NameLevel}/Setting/Terrain", f"{NameLevel}/Setting/Vegetation"]
         for Folder in Folders:
             os.mkdir(Folder)
             print(f"- A new directory has been created: [{Folder}]")
@@ -37,14 +37,14 @@ try:
     for file in os.listdir():
         if file.endswith('.lyr'):
             source_file = file
-            target_file = os.path.join(f"{NameLevel}\\Layers\\", file)
+            target_file = os.path.join(f"{NameLevel}\\Setting\\Layers\\", file)
             try:
                 move(source_file, target_file)
             except OSError as e:
                 print(f'An error occurred while moving the file!\nFile: {e.filename}')
     shutil.move("brush", f"{NameLevel}\\brush")
-    move("TimeOfDay.tod", f"{NameLevel}\\TOD\\")
-    move("TerrainLayerTexInfo.lay", f"{NameLevel}\\Terrain\\")
+    move("TimeOfDay.tod", f"{NameLevel}\\Setting\\TOD\\")
+    move("TerrainLayerTexInfo.lay", f"{NameLevel}\\Setting\\Terrain\\")
     move("level.pak", f"{NameLevel}\\")
     print('-------------------------------------------------------------------------------------\n- Working with the program [CryLevelConvert.exe] completed. The created files are distributed in directories.')
     os.remove('moviedata.xml')
@@ -71,7 +71,7 @@ try:
     LightSettings = f'''<LightSettings>
     <Lighting SunRotation="{SunRotation}" SunHeight="{SunHeight}" Algorithm="{Algorithm}" Lighting="{Lighting}" Shadows="{Shadows}" ShadowIntensity="{ShadowIntensity}" ILQuality="{ILQuality}" HemiSamplQuality="{HemiSamplQuality}" Longitude="{Longitude}" DawnTime="{DawnTime}" DawnDuration="{DawnDuration}" DuskTime="{DuskTime}" DuskDuration="{DuskDuration}" SunVector="{SunVector}"/>
 </LightSettings>'''
-    with open(f'{NameLevel}/TOD/LightSettings.lgt', "w+") as f:
+    with open(f'{NameLevel}/Setting/Lighting/LightSettings.lgt', "w+") as f:
         f.write(LightSettings)
     print('- The file was extracted: [LightSettings.lgt]')
     os.remove('mission_mission0.xml')
@@ -228,7 +228,7 @@ try:
             Category = ""
         Vegetation += f'\n    <VegetationObject Size="{Size}" SizeVar="{SizeVar}" RandomRotation="{RandomRotation}" AlignToTerrain="{AlignToTerrain}" UseTerrainColor="{UseTerrainColor}" AllowIndoor="{AllowIndoor}" Bending="{Bending}" Hideable="{Hideable}" PlayerHideable="{PlayerHideable}" GrowOnVoxels="{GrowOnVoxels}" GrowOnBrushes="{GrowOnBrushes}" Pickable="{Pickable}" AIRadius="{AIRadius}" Brightness="{Brightness}" Density="{Density}" ElevationMin="{ElevationMin}" ElevationMax="{ElevationMax}" SlopeMin="{SlopeMin}" SlopeMax="{SlopeMax}" CastShadow="{CastShadow}" RecvShadow="{RecvShadow}" AlphaBlend="{AlphaBlend}" SpriteDistRatio="{SpriteDistRatio}" LodDistRatio="{LodDistRatio}" MaxViewDistRatio="{MaxViewDistRatio}" Material="{Material}" UseSprites="{UseSprites}" MinSpec="{MinSpec}" MaxSpec="{MaxSpec}" Frozen="{Frozen}" Layer_Wet="{Layer_Wet}" Object="{Object}" Id="{Id}" GUID="{GUID}" Hidden="{Hidden}" Index="{Index}" Category="{Category}" />'
     Vegetation += "\n</Vegetation>"
-    with open(f'{NameLevel}/Vegetation/VegetationObject.veg', "w+") as f:
+    with open(f'{NameLevel}/Setting/Vegetation/VegetationObject.veg', "w+") as f:
         f.write(Vegetation)
     print('- The file was extracted: [VegetationObject.veg]')
     os.remove('leveldata.xml')
