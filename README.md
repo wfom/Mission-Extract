@@ -13,3 +13,4 @@ Mission_Extract — это программа для извлечения фай
 - Расшифрованный архив уровня \[level.pak\];
 
 Программа является своеобразным дополнением к [CryLevelConvert.exe](https://github.com/prophetl33t/CryLevelConvert), что позволяет упростить и ускорить работу с ним в несколько раз ;)
+![image](https://github.com/user-attachments/assets/816d03d1-8772-4eac-b3c1-ca3126056abc)
