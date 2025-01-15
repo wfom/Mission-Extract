@@ -9,6 +9,12 @@ from shutil import move
 input("\n\n⚠️ Attention! During the execution of the program, you must press the [Enter] key so that it continues to work. Press the [Enter] key to start working...\n\n")
 
 try:
+    if not os.path.exists('level.pak') and not os.path.exists('terraintexture.pak'):
+        raise ValueError("The [level.pak] and [terraintexture.pak] archives were not found. Check if these files are in the directory.")
+    elif not os.path.exists('level.pak'):
+        raise ValueError("The [level.pak] archive was not found. Check if this file is in the directory.")
+    elif not os.path.exists('terraintexture.pak'):
+        raise ValueError("The [terraintexture.pak] archive was not found. Check if this file is in the directory.")
     with zipfile.ZipFile('level.pak') as zf:
         for file in zf.namelist():
             if file.startswith('brush/'):
@@ -28,7 +34,7 @@ try:
         NameLevel = tag.attrib['Name']
     print(f'- Level Name:: [{NameLevel}]')
     if not os.path.isdir(NameLevel):
-        Folders = [NameLevel, f"{NameLevel}/Setting", f"{NameLevel}/Setting/Layers", f"{NameLevel}/Setting/TOD", f"{NameLevel}/Setting/Lighting", f"{NameLevel}/Setting/Terrain", f"{NameLevel}/Setting/Vegetation"]
+        Folders = [NameLevel, f"{NameLevel}/Setting", f"{NameLevel}/Setting/Layers", f"{NameLevel}/Setting/TOD_and_Lighting", f"{NameLevel}/Setting/Terrain", f"{NameLevel}/Setting/Vegetation"]
         for Folder in Folders:
             os.mkdir(Folder)
             print(f"- A new directory has been created: [{Folder}]")
@@ -43,9 +49,10 @@ try:
             except OSError as e:
                 print(f'An error occurred while moving the file!\nFile: {e.filename}')
     shutil.move("brush", f"{NameLevel}\\brush")
-    move("TimeOfDay.tod", f"{NameLevel}\\Setting\\TOD\\")
+    move("TimeOfDay.tod", f"{NameLevel}\\Setting\\TOD_and_Lighting\\")
     move("TerrainLayerTexInfo.lay", f"{NameLevel}\\Setting\\Terrain\\")
     move("level.pak", f"{NameLevel}\\")
+    move("terraintexture.pak", f"{NameLevel}\\")
     print('-------------------------------------------------------------------------------------\n- Working with the program [CryLevelConvert.exe] completed. The created files are distributed in directories.')
     os.remove('moviedata.xml')
     print('- The file was deleted: [moviedata.xml]')
@@ -68,10 +75,8 @@ try:
         DuskTime = tag.attrib['DuskTime']
         DuskDuration = tag.attrib['DuskDuration']
         SunVector = tag.attrib['SunVector']
-    LightSettings = f'''<LightSettings>
-    <Lighting SunRotation="{SunRotation}" SunHeight="{SunHeight}" Algorithm="{Algorithm}" Lighting="{Lighting}" Shadows="{Shadows}" ShadowIntensity="{ShadowIntensity}" ILQuality="{ILQuality}" HemiSamplQuality="{HemiSamplQuality}" Longitude="{Longitude}" DawnTime="{DawnTime}" DawnDuration="{DawnDuration}" DuskTime="{DuskTime}" DuskDuration="{DuskDuration}" SunVector="{SunVector}"/>
-</LightSettings>'''
-    with open(f'{NameLevel}/Setting/Lighting/LightSettings.lgt', "w+") as f:
+    LightSettings = f'<LightSettings>\n    <Lighting SunRotation="{SunRotation}" SunHeight="{SunHeight}" Algorithm="{Algorithm}" Lighting="{Lighting}" Shadows="{Shadows}" ShadowIntensity="{ShadowIntensity}" ILQuality="{ILQuality}" HemiSamplQuality="{HemiSamplQuality}" Longitude="{Longitude}" DawnTime="{DawnTime}" DawnDuration="{DawnDuration}" DuskTime="{DuskTime}" DuskDuration="{DuskDuration}" SunVector="{SunVector}"/>\n</LightSettings>'
+    with open(f'{NameLevel}/Setting/TOD_and_Lighting/LightSettings.lgt', "w+") as f:
         f.write(LightSettings)
     print('- The file was extracted: [LightSettings.lgt]')
     os.remove('mission_mission0.xml')
@@ -237,8 +242,8 @@ try:
 except Exception as e:
     e = str(e)
     if e == "[Errno 2] No such file or directory: 'level.pak'":
-        input("The [level.pak] archive was not found. Check if this file is in the directory.")
+        input("Error: The [level.pak] archive was not found. Check if this file is in the directory.")
     elif e == "Bad magic number for central directory":
-        input("The [level.pak] archive has not been decrypted. Decrypt the archive and try again.")
+        input("Error: The [level.pak] archive has not been decrypted. Decrypt the archive and try again.")
     else:
-        input(e)
+        input(f'Error: {e}')
