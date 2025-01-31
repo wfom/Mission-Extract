@@ -19,4 +19,5 @@ Mission_Extract — это программа для извлечения фай
 
 Программа является своеобразным дополнением к [CryLevelConvert.exe](https://github.com/prophetl33t/CryLevelConvert), что позволяет упростить и ускорить работу с ним в несколько раз. Вместо того, чтобы собирать все файлы по директории, они будут ждать вас в одной папке, так ещё и будут отсортированы по назначению. Ну и также программа извлечёт те файлы, которые CryLevelConvert не извлекает.
 
-![image](https://github.com/user-attachments/assets/816d03d1-8772-4eac-b3c1-ca3126056abc)
+![image](https://github.com/user-attachments/assets/ebb74a01-214d-451d-9929-35726e109cb7)
+
